@@ -3,10 +3,10 @@ package br.com.alura.ecommerce;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import java.util.concurrent.ExecutionException;
 
-public class EmailDtetectorService{
+public class EmailService {
     public static void main(String [] args) throws ExecutionException, InterruptedException {
-        var emailService = new EmailDtetectorService();
-        try(var service = new KafkaService(EmailDtetectorService.class.getSimpleName(),
+        var emailService = new EmailService();
+        try(var service = new KafkaService(EmailService.class.getSimpleName(),
                 "ECOMMERCE_SEND_EMAIL",
                 emailService::parse)){
             service.run();

@@ -10,21 +10,31 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class KafkaService implements Closeable {
     private final KafkaConsumer<String, String> consumer;
     private final ConsumerFunction parse;
 
-    KafkaService(String simpleName, String topi, ConsumerFunction parse) {
+    private KafkaService(ConsumerFunction parse, String groupId) {
         this.parse = parse;
-        //ESCULTA SE TEM MENSAGEM
-        this.consumer = new KafkaConsumer<String, String>(properties(simpleName));
-        run();
+        this.consumer = new KafkaConsumer<String, String>(properties(groupId));
+    }
+
+    KafkaService(String groupId, String topic, ConsumerFunction parse) {
+        this(parse, groupId);
+        consumer.subscribe(Collections.singletonList(topic));
+        //run();
+    }
+
+    public KafkaService(String groupId, Pattern topic, ConsumerFunction parse) {
+        this(parse, groupId);
+        consumer.subscribe(topic);
+        //run();
     }
 
     void run() {
         while(true) {
-            consumer.subscribe(Collections.singletonList("ECOMMERCE_SEND_EMAIL"));
             var records = consumer.poll(Duration.ofMillis(100));
             if (!records.isEmpty()) {
                 System.out.println("Encontrei "+records.count()+ " registros");

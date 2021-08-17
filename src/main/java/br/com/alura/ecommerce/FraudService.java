@@ -3,10 +3,10 @@ package br.com.alura.ecommerce;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import java.util.concurrent.ExecutionException;
 
-public class FraudDtetectorService {
+public class FraudService {
     public static void main(String [] args) throws ExecutionException, InterruptedException {
-        var fraudeService = new FraudDtetectorService();
-        try(var service = new KafkaService(FraudDtetectorService.class.getSimpleName(),
+        var fraudeService = new FraudService();
+        try(var service = new KafkaService(FraudService.class.getSimpleName(),
                 "ECOMMERCE_NEW_ORDER",
                 fraudeService::parse)){
             service.run();
