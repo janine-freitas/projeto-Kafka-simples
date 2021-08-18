@@ -1,19 +1,24 @@
 package br.com.alura.ecommerce;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 public class FraudService {
     public static void main(String [] args) throws ExecutionException, InterruptedException {
         var fraudeService = new FraudService();
-        try(var service = new KafkaService(FraudService.class.getSimpleName(),
+        try(var service = new KafkaService<>(FraudService.class.getSimpleName(),
                 "ECOMMERCE_NEW_ORDER",
-                fraudeService::parse)){
+                fraudeService::parse,
+                Order.class,
+                Map.of())){
             service.run();
         }
     }
 
-    private void parse(ConsumerRecord<String, String> record) {
+    private void parse(ConsumerRecord<String, Order> record) {
         System.out.println("-----------------------------------------");
         System.out.println("Processing new order, checking for fraud ");
         System.out.println(record.key());
