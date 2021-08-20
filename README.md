@@ -1,7 +1,7 @@
 # Projeto Kafka Simples
 Curso sobre Kafka
 
-## Temas abordados
+## Temas Abordados
 
 * Utilize Kafka para comunicação assíncrona
 * Aprenda a criar microsserviços com Kafka
@@ -16,3 +16,6 @@ Professor: https://www.linkedin.com/in/guilhermeazevedosilveira/
 
 Fonte original: https://github.com/alura-cursos/kafka-introducao-e-microservicos
 
+## License
+
+Copyright © 2021 FIXME
